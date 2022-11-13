@@ -32,7 +32,7 @@ body {
 }
 
 header{
-    font-size: clamp(0.5rem, 3vmin, 2.5rem);
+    font-size: clamp(1rem, 2.5vmin, 3rem);
     text-align: center;
     height: 4em;
     display: flex;
@@ -110,7 +110,7 @@ header{
     display: grid;
     justify-content: center;
     align-content: center;
-    flex-grow: 1;
+    flex: 1 1 auto; 
     gap: 0.4em;
     grid-template-columns: repeat(5, 3em);
     grid-template-rows: repeat(6, 3em);
@@ -166,7 +166,5 @@ header{
     .guess-grid {
         grid-template-columns: repeat(5, 5em);
         grid-template-rows: repeat(6, 5em);
-        align-content: flex-start;
-        flex-grow: 0;
     }
 }
