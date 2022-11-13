@@ -30,6 +30,17 @@ body {
     min-height: 100vh;
 }
 
+header{
+    font-size: inherit;
+    text-align: center;
+    height: 4em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1em;
+    border-bottom: solid 1px var(--tile-status-active-border-color);
+}
+
 .keyboard {
     display: grid;
     justify-content: center;
@@ -100,14 +111,14 @@ body {
     align-content: center;
     flex-grow: 1;
     gap: 0.4em;
-    grid-template-columns: repeat(5, 4em);
-    grid-template-rows: repeat(6, 4em);
+    grid-template-columns: repeat(5, 3em);
+    grid-template-rows: repeat(6, 3em);
     margin-bottom: 1em;
     user-select: none;
 }
 
 .tile {
-    font-size: 2em;
+    font-size: 1.5em;
     color: var(--font-color);
     text-transform: uppercase;
     display: flex;
@@ -138,19 +149,14 @@ body {
 }
 
 
-@media (max-width: 1007px) {
+@media (max-width: 768px) {
     .keyboard {
-        grid-template-rows: repeat(3, 5em);
-    }
-
-    .guess-grid {
-        grid-template-columns: repeat(5, 5em);
-        grid-template-rows: repeat(6, 5em);
+        grid-template-rows: repeat(3, 4em);
     }
 }
-@media (max-width: 640px) {
+@media (max-width: 480px) {
     .keyboard {
-        grid-template-rows: repeat(3, 6em);
+        grid-template-rows: repeat(3, 5em);
     }
 
     .guess-grid {
