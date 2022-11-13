@@ -17,6 +17,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    touch-action: manipulation;
 }
 
 body {
@@ -155,6 +156,9 @@ header{
     }
 }
 @media (max-width: 480px) {
+    body{
+        overflow: hidden;
+    }
     .keyboard {
         grid-template-rows: repeat(3, 5em);
     }
