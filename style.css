@@ -26,8 +26,6 @@ body {
     font-size: clamp(0.5rem, 2.5vmin, 1.5rem);
     padding: 1em;
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
     min-height: 100vh;
 }
