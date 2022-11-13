@@ -98,11 +98,12 @@ body {
     display: grid;
     justify-content: center;
     align-content: center;
-    flex: 1;
+    flex-grow: 1;
     gap: 0.4em;
     grid-template-columns: repeat(5, 4em);
     grid-template-rows: repeat(6, 4em);
     margin-bottom: 1em;
+    user-select: none;
 }
 
 .tile {
