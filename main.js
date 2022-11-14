@@ -15290,6 +15290,7 @@ const dictionary = [
     "shave"
   ];
 
+
 const startDate = new Date(2022,10,10); // in milliSecond
 const currentDate = Date.now();
 const daysFromStart = Math.floor((currentDate - startDate) / 1000 / 60 / 60 / 24 ); // Converting Millisecond to number of Days

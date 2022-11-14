@@ -38,7 +38,7 @@ body {
 }
 
 header{
-    font-size: clamp(1rem, 2.5vmin, 3rem);
+    font-size: clamp(1rem, 2.5vmin, 2.5rem);
     width: 100%;
     text-align: center;
     height: 4em;
@@ -165,8 +165,9 @@ header{
 }
 @media (max-width: 480px) {
     .main-container{
-        margin-bottom: 50px;
+        padding-bottom: 3em;
     }
+    
     body{
         overflow: hidden;
     }
