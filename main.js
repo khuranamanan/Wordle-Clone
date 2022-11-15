@@ -12971,8 +12971,8 @@ const dictionary = [
     "artsy",
     "rural",
     "shave"
-  ];
-  const targetWords = [
+];
+const targetWords = [
     "cigar",
     "rebut",
     "sissy",
@@ -15288,78 +15288,86 @@ const dictionary = [
     "artsy",
     "rural",
     "shave"
-  ];
+];
 
-
-const startDate = new Date(2022,10,10); // in milliSecond
+// To Change Target Word Daily
+const startDate = new Date(2022, 10, 10); // in milliSecond
 const currentDate = Date.now();
-const daysFromStart = Math.floor((currentDate - startDate) / 1000 / 60 / 60 / 24 ); // Converting Millisecond to number of Days
+const daysFromStart = Math.floor((currentDate - startDate) / 1000 / 60 / 60 / 24); // Converting Millisecond to number of Days
 const todaysTargetWord = targetWords[daysFromStart];
 
 const guessGrid = document.querySelector("[data-guess-grid]");
+const alertContainer = document.querySelector("[data-alert-container]");
 
-startInteraction();
 
-function startInteraction(){
+function startInteraction() {
     document.addEventListener("click", mouseInteraction);
     document.addEventListener("keydown", keyboardInteraction);
 }
 
-function stopInteraction(){
+function stopInteraction() {
     document.removeEventListener("click", mouseInteraction);
     document.removeEventListener("keydown", keyboardInteraction);
 }
 
-function mouseInteraction(e){
-    if (e.target.matches("[data-key]")){
+function mouseInteraction(e) {
+    if (e.target.matches("[data-key]")) {
         pressKey(e.target.dataset.key);
         return
     }
 
-    if (e.target.matches("[data-enter]")){
+    if (e.target.matches("[data-enter]")) {
         submitGuess();
         return
     }
 
-    if (e.target.matches("[data-delete]")){
+    if (e.target.matches("[data-delete]")) {
         deleteCharacter();
         return
     }
 }
 
-function keyboardInteraction(e){
-    if (e.key === "Enter"){
+function keyboardInteraction(e) {
+    if (e.key === "Enter") {
         submitGuess();
         return
     }
 
-    if (e.key === "Backspace"){
+    if (e.key === "Backspace") {
         deleteCharacter();
         return
     }
 
-    if (e.key.match(/^[a-z]$/)){
+    if (e.key.match(/^[a-z]$/)) {
         pressKey(e.key)
         return
     }
 }
 
-function pressKey(key){
-const numberOfActiveTiles = activeTiles();
+function pressKey(key) {
+    const numberOfActiveTiles = activeTiles();
 
-if (numberOfActiveTiles.length === 5) return;
+    if (numberOfActiveTiles.length === 5) return;
 
-const firstEmptyTile = guessGrid.querySelector(":not([data-letter])");
-firstEmptyTile.innerText = key;
-firstEmptyTile.dataset.letter = key;
-firstEmptyTile.dataset.status = "active";
-
+    const firstEmptyTile = guessGrid.querySelector(":not([data-letter])");
+    firstEmptyTile.innerText = key;
+    firstEmptyTile.dataset.letter = key;
+    firstEmptyTile.dataset.status = "active";
+    zoomInOut(firstEmptyTile);
 }
 
-function deleteCharacter(){
+function zoomInOut(tile) {
+    tile.classList.add("zoom-in-out")
+
+    tile.addEventListener("animationend", () => {
+        tile.classList.remove("zoom-in-out")
+    });
+}
+
+function deleteCharacter() {
     const tilesWithText = activeTiles()
 
-    if(tilesWithText.length === 0) return;
+    if (tilesWithText.length === 0) return;
 
     const lastActiveTile = tilesWithText[tilesWithText.length - 1];
 
@@ -15368,11 +15376,52 @@ function deleteCharacter(){
     delete lastActiveTile.dataset.letter;
 }
 
-function activeTiles(){
+function activeTiles() {
     const activeTiles = guessGrid.querySelectorAll("[data-letter]");
     return activeTiles;
 }
 
-function submitGuess(){
-    
+function submitGuess() {
+    const activeT = [...activeTiles()];
+    console.log(activeT, activeT.length);
+    if (activeT.length < 5) {
+        showAlert("Not enough Characters!");
+        shakeTiles(activeT);
+        return
+    }
 }
+
+function showAlert(message, duration = 1000) {
+    const alert = document.createElement("div");
+    alert.classList.add("alert");
+    alert.innerText = message;
+    alertContainer.prepend(alert);
+    console.log(alert, "It's here alert")
+    setTimeout(() => {
+        alert.classList.add("alert-hide");
+        alert.addEventListener("transitionend", () => {
+            alert.remove();
+        })
+    }, duration)
+}
+
+function shakeTiles(tiles) {
+    tiles.forEach(tile => {
+        tile.classList.add("shake")
+
+        tile.addEventListener("animationend", () => {
+            tile.classList.remove("shake")
+        })
+    });
+}
+
+
+
+
+
+
+
+
+
+
+startInteraction();
