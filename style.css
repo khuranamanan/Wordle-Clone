@@ -140,6 +140,7 @@ header{
     font-weight: bolder;
     user-select: none;
     border: solid 0.125em var(--grid-border-and-wrong-status);
+    transition: transform 250ms linear;
 }
 
 .tile[data-status="active"] {
@@ -213,6 +214,35 @@ header{
     }
 }
 
+.tile.flip{
+    transform: rotateX(90deg);
+}
+
+.tile.jump{
+    animation: jump 500ms linear;
+}
+
+@keyframes jump{
+    20%{
+        transform: translateY(-50%);
+    }
+    40%{
+        transform: translateY(5%);
+    }
+    60%{
+        transform: translateY(-25%);
+    }
+    80%{
+        transform: translateY(2.5%);
+    }
+    90%{
+        transform: translateY(-5%);
+    }
+    100%{
+        transform: translateY(0);
+    }
+}
+
 .alert-container{
     position: fixed;
     top: 15%;
@@ -241,7 +271,6 @@ header{
 }
 
 
-
 @media (max-width: 768px) {
     .keyboard {
         grid-template-rows: repeat(3, 4em);
@@ -263,6 +292,6 @@ header{
     .guess-grid {
         grid-template-columns: repeat(5, 4em);
         grid-template-rows: repeat(6, 4em);
-        /* align-content: normal; */
+        align-content: normal;
     }
 }

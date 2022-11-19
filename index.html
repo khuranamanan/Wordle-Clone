@@ -7,7 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wordle Clone</title>
     <link rel="stylesheet" href="style.css">
-    <script src="main.js" defer></script>
+    <script src="dictionary.js" type="module"></script>
+    <script src="targetwords.js" type="module"></script>
+    <script src="main.js" type="module" defer></script>
     <link rel="shortcut icon" href="https://www.nytimes.com/games-assets/v2/metadata/wordle-favicon.ico?v=v2211081315"
         type="image/x-icon">
 </head>
@@ -51,7 +53,7 @@
             <div class="tile"></div>
             <div class="tile"></div>
         </div>
-        <div class="keyboard">
+        <div class="keyboard" data-keyboard>
             <button class="key" data-key="Q">Q</button>
             <button class="key" data-key="W">W</button>
             <button class="key" data-key="E">E</button>
