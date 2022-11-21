@@ -177,7 +177,7 @@ function showAlert(message, duration = 1000) {
     alert.classList.add("alert");
     alert.innerText = message;
     alertContainer.prepend(alert);
-    console.log(alert, "It's here alert")
+
     setTimeout(() => {
         alert.classList.add("alert-hide");
         alert.addEventListener("transitionend", () => {
@@ -228,3 +228,10 @@ function jump(correctTiles){
 
 //Calling the startInteraction Function so as soon as it loads user can start interacting
 startInteraction();
+
+
+const hamburger = document.querySelector("[data-hamburger]");
+
+hamburger.addEventListener("click", ()=>{
+    hamburger.classList.toggle("active");
+})
