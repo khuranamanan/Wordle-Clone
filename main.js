@@ -46,7 +46,8 @@ function mouseInteraction(e) {
         return
     }
 
-    if (e.target.matches("[data-delete]")) {
+    // Closest method is used here instead of matches because the delete key has a child element (svg) which can also be clicked
+    if (e.target.closest("[data-delete]")) {
         deleteCharacter();
         return
     }
