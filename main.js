@@ -15419,7 +15419,7 @@ function submitGuess() {
         return word + tile.dataset.letter
     }, "");
 
-    if (dictionary.includes(guess) === false) {
+    if (!dictionary.includes(guess)) {
         showAlert("Not a Word!")
         shakeTiles(activeT);
         return
@@ -15571,7 +15571,7 @@ function retrieveTheme() {
     })
 
     //Fallback if browser doesn't support :has() pseudo-class
-    document.documentElement.className = themestored;
+    document.documentElement.className = themeStored;
 }
 
 // Calling the retrieve Function to set the current theme to user's previously selected theme option
