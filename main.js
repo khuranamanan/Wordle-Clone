@@ -1,6 +1,10 @@
 //Importing Dictionary and Target Words from a separate JavaScript File
-import { dictionary } from "./dictionary.js";
-import { targetWords } from "./targetwords.js"
+import {
+    dictionary
+} from "./dictionary.js";
+import {
+    targetWords
+} from "./targetwords.js"
 
 // To Change Target Word Daily
 const startDate = new Date(2022, 10, 18); // in milliSecond
@@ -19,7 +23,7 @@ const keyboard = document.querySelector("[data-keyboard]");
 //Function to add event listeners to Keyboard buttons on the document and the actual keyboard
 function startInteraction() {
     // document.addEventListener("click", mouseInteraction);
-    allButtons.forEach((e)=>{
+    allButtons.forEach((e) => {
         e.addEventListener("click", mouseInteraction);
     })
     document.addEventListener("keydown", keyboardInteraction);
@@ -28,7 +32,7 @@ function startInteraction() {
 //Function to remove Event listeners from Keyboard buttons on the document and the actual keyboard
 function stopInteraction() {
     // document.removeEventListener("click", mouseInteraction);
-    allButtons.forEach((e)=>{
+    allButtons.forEach((e) => {
         e.removeEventListener("click", mouseInteraction);
     })
     document.removeEventListener("keydown", keyboardInteraction);
@@ -121,54 +125,61 @@ function submitGuess() {
         return
     }
 
-    const guess = activeT.reduce((word, tile)=>{
+    const guess = activeT.reduce((word, tile) => {
         const letter = tile.dataset.letter;
         word += letter;
         return word
-    },"");
+    }, "");
 
-    if(dictionary.includes(guess) === false){
+    if (dictionary.includes(guess) === false) {
         showAlert("Not a Word!")
         shakeTiles(activeT);
         return
     }
 
     stopInteraction();
-    activeT.forEach((...params)=>{
+    activeT.forEach((...params) => {
         flipTiles(...params, guess);
     })
 }
 
 //Function that animates and changes the color of tiles and keys after user's each guess
-function flipTiles(tile, index, array, guess){
+function flipTiles(tile, index, array, guess) {
     const letter = tile.dataset.letter;
     const key = keyboard.querySelector(`[data-key="${letter}"i]`);
 
-    setTimeout(()=>{
+    setTimeout(() => {
         tile.classList.add("flip")
     }, index * flipAnimationDuration / 2)
 
-    tile.addEventListener("transitionend",()=>{
+    tile.addEventListener("transitionend", () => {
         tile.classList.remove("flip");
 
-        if(todaysTargetWord[index] === letter){
+        if (todaysTargetWord[index] === letter) {
             tile.dataset.status = "correct";
             key.classList.add('correct');
-        } else if(todaysTargetWord.includes(letter)){
+            key.style.color = "var(--tile-font-color)";
+        } else if (todaysTargetWord.includes(letter)) {
             tile.dataset.status = "wrong-location";
             key.classList.add('wrong-location');
+            key.style.color = "var(--tile-font-color)"
         } else {
             tile.dataset.status = "wrong";
             key.classList.add('wrong');
+            key.style.color = "var(--tile-font-color)";
         }
 
-        if (index === (array.length-1)){
-            tile.addEventListener("transitionend",()=>{
+        if (index === (array.length - 1)) {
+            tile.addEventListener("transitionend", () => {
                 startInteraction();
                 checkWinOrLoose(guess, array);
-            }, { once: true })
+            }, {
+                once: true
+            })
         }
-    }, { once: true })
+    }, {
+        once: true
+    })
 }
 
 //Function that show's appropriate message to user like: Not enough Characters, Not a Word, Correct guess, Wrong Guess
@@ -193,13 +204,15 @@ function shakeTiles(tiles) {
 
         tile.addEventListener("animationend", () => {
             tile.classList.remove("shake")
-        }, { once: true })
+        }, {
+            once: true
+        })
     });
 }
 
 //Function that checks if the user Won the game or lost
-function checkWinOrLoose(guess, tiles){
-    if(todaysTargetWord === guess){
+function checkWinOrLoose(guess, tiles) {
+    if (todaysTargetWord === guess) {
         showAlert("You Won!!", 10000)
         jump(tiles);
         stopInteraction();
@@ -207,7 +220,7 @@ function checkWinOrLoose(guess, tiles){
     }
 
     const remaininingTiles = guessGrid.querySelectorAll(":not([data-letter])")
-    if(remaininingTiles.length === 0){
+    if (remaininingTiles.length === 0) {
         showAlert(`Today's Wordle is "${todaysTargetWord.toUpperCase()}".`, 10000)
         stopInteraction();
         return
@@ -215,14 +228,16 @@ function checkWinOrLoose(guess, tiles){
 }
 
 //Function to animate tiles when the user's guess is right
-function jump(correctTiles){
-    correctTiles.forEach((e, index)=>{
-        setTimeout(()=>{
+function jump(correctTiles) {
+    correctTiles.forEach((e, index) => {
+        setTimeout(() => {
             e.classList.add("jump")
             e.addEventListener("animationend", () => {
                 e.classList.remove("jump")
-            }, { once: true })
-        }, index * jumpAnimationDuration/5)
+            }, {
+                once: true
+            })
+        }, index * jumpAnimationDuration / 5)
     })
 }
 
@@ -230,8 +245,46 @@ function jump(correctTiles){
 startInteraction();
 
 
+//Hamburger Menu
+
 const hamburger = document.querySelector("[data-hamburger]");
 
-hamburger.addEventListener("click", ()=>{
+//Adding click event listener to the hamburger menu (Open/Close)
+hamburger.addEventListener("click", () => {
     hamburger.classList.toggle("active");
 })
+
+
+// Theme picker
+
+const themeRadioBtns = document.querySelectorAll('[name="theme"]');
+
+//Function to store the selected theme in local Storage
+function storeTheme(theme) {
+    localStorage.setItem("theme", theme);
+    return;
+}
+
+//Adding click Event Listener on each Theme Option to store the user selected theme to the local storage
+themeRadioBtns.forEach((themeOption) => {
+    themeOption.addEventListener("click", () => {
+        storeTheme(themeOption.id);
+    })
+})
+
+//Function that Retrieve's user's previously selected theme option and set's that option for the current session of the user
+function retrieveTheme() {
+    const themeStored = localStorage.getItem("theme");
+
+    themeRadioBtns.forEach((themeOption) => {
+        if (themeOption.id === themeStored) {
+            themeOption.checked = true;
+        }
+    })
+
+    //Fallback if browser doesn't support :has() pseudo-class
+    document.documentElement.className = themestored;
+}
+
+// Calling the retrieve Function to set the current theme to user's previously selected theme option
+retrieveTheme();
