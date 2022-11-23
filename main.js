@@ -15418,8 +15418,8 @@ function submitGuess() {
         // word += letter;
         return word + tile.dataset.letter
     }, "");
-
-    if (!dictionary.includes(guess)) {
+    
+    if (!dictionary.includes(guess.toLowerCase())) {
         showAlert("Not a Word!")
         shakeTiles(activeT);
         return
