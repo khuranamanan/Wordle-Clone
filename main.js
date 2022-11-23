@@ -15370,7 +15370,7 @@ function pressKey(key) {
 
     const firstEmptyTile = guessGrid.querySelector(":not([data-letter])");
     firstEmptyTile.innerText = key;
-    firstEmptyTile.dataset.letter = key;
+    firstEmptyTile.dataset.letter = key.toLowerCase();
     firstEmptyTile.dataset.status = "active";
     zoomInOut(firstEmptyTile);
 }
@@ -15416,7 +15416,7 @@ function submitGuess() {
     const guess = activeT.reduce((word, tile) => {
         // const letter = tile.dataset.letter;
         // word += letter;
-        return (word + tile.dataset.letter).toLowerCase()
+        return word + tile.dataset.letter
     }, "");
     
     if (!dictionary.includes(guess)) {
