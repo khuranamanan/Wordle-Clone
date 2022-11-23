@@ -15416,10 +15416,10 @@ function submitGuess() {
     const guess = activeT.reduce((word, tile) => {
         // const letter = tile.dataset.letter;
         // word += letter;
-        return word + tile.dataset.letter
+        return (word + tile.dataset.letter).toLowerCase()
     }, "");
     
-    if (!dictionary.includes(guess.toLowerCase())) {
+    if (!dictionary.includes(guess)) {
         showAlert("Not a Word!")
         shakeTiles(activeT);
         return
