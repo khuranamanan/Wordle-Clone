@@ -15414,9 +15414,9 @@ function submitGuess() {
     }
 
     const guess = activeT.reduce((word, tile) => {
-        const letter = tile.dataset.letter;
-        word += letter;
-        return word
+        // const letter = tile.dataset.letter;
+        // word += letter;
+        return word + tile.dataset.letter
     }, "");
 
     if (dictionary.includes(guess) === false) {
